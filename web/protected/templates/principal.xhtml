@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+        <title>SIGA.::.Sistem Integrado de Gesti&oacute;n Acad&eacute;mica</title>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <p:layout fullPage="true">
+                <p:layoutUnit style="font-size: 12px;" position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">
+                    <h:outputText value="Top unit content." />
+                </p:layoutUnit>
+                <p:layoutUnit style="font-size: 12px;" position="west" size="220" header="Menu" >
+                    <!--<ui:include src="../View/menu.xhtml" />-->
+                    <p:growl id="mensajes"/>
+                    <p:panelMenu style="width:200px; font-family: arial; font-size: 12px;">
+                        <p:submenu label="Admisiones" >
+                            <p:submenu label="Inscripciones" icon="ui-icon-extlink">
+                                <p:menuitem value="Home" action="/faces/protected/views/mainPage" icon="ui-icon-home" target="content"/>
+                                <p:menuitem value="Docs" url="http://www.primefaces.org/documentation" icon="ui-icon-document" />
+                                <p:menuitem value="Download" url="http://www.primefaces.org/downloads" icon="ui-icon-arrowthick-1-s" />
+                                <p:menuitem value="Support" url="http://www.primefaces.org/support" icon="ui-icon-wrench" />
+                            </p:submenu>                
+                        </p:submenu>
+                    </p:panelMenu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" style="font-size: 12px;">
+                    <ui:insert name="content">Put default content here, if any.</ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+        </h:form>        
+    </h:body>
+
+</html>
