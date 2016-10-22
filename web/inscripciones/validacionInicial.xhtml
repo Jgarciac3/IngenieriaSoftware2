@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <script language="javascript" src="utils/locale.js"/>
+    </h:head>
+    <h:body>
+        <br/>
+        <table align="center" width="800">
+            <tr>
+                <td>
+                    <h:form id="page1">
+                        <p:growl id="msgs" showDetail="true" />
+                        <p:panel header="Inscripciones" style="font: Arial; font-size: 12px;" id="validacion">
+                            <p:fieldset legend="Validacion Edad">
+                                <div align="center">
+                                    <h:panelGrid columns="4">
+                                        <p:outputLabel value="Seleccione la Fecha de Nacimiento" for="fecha"/>
+                                        <p:calendar pattern="dd-MM-yyyy" maxdate="0" id="fecha" locale="es" navigator="true" value="#{inicioInscripciones.fechaNacimiento}">
+                                            <p:ajax event="dateSelect" listener="#{inicioInscripciones.onDateSelect}" update="edad, msgs, acepta"/>
+                                        </p:calendar>
+                                        <p:outputLabel value="Edad" for="edad"/>
+                                        <p:inputText id="edad" readonly="true" value="#{inicioInscripciones.edad}"/>
+                                        <h:outputLabel value="Seleccione el tipo documento de identidad" for="tipo"/>
+                                        <p:selectOneMenu id="tipo" value="#{inicioInscripciones.tipoDocumento}" required="true" requiredMessage="Debe seleccionar un documento">
+                                            <f:selectItem itemLabel="Seleccione...." itemValue="#{null}"/>
+                                            <f:selectItems value="#{inicioInscripciones.listaDocumentos}"/>
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value="Numero Documento" for="numDocumento"/>
+                                        <p:inputText id="numDocumento" value="#{inicioInscripciones.numDocumento}" required="true" requiredMessage="Debe ingresar el numero de documento" validatorMessage="Debe ingresar solo numeros en el campo documento">
+                                            <p:keyFilter regEx="/[\d\-\.]/"/>
+                                            <!--<f:validateRegex pattern="(/^[0-9]+$/)"/>-->
+                                        </p:inputText>                                        
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Condiciones">
+                                <li>El pago de la inscripcion es personal e intransferible</li>
+                                <li>Bajo ningún motivo habrá lugar a devoluciones de dinero</li>
+                                <li>En caso de registrar informacion falsa, el aspirante quedará excluido del proceso de admision en cualquier instancia</li>
+                                <center>
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="Acepto los terminos" for="acepta"/>
+                                        <p:selectBooleanCheckbox id="acepta" disabled="#{inicioInscripciones.activarCheck}" value="#{inicioInscripciones.acepta}">
+                                            <p:ajax update="aceptar" listener="#{inicioInscripciones.activarBoton}"/>
+                                        </p:selectBooleanCheckbox>
+                                </h:panelGrid>                                    
+                            </center>
+                        </p:fieldset>
+                        <f:facet name="footer">
+                            <p:commandButton value="Aceptar" id="aceptar" disabled="#{inicioInscripciones.activarBoton}" actionListener="#{inicioInscripciones.redireccionar}" update="msgs"/>
+                        </f:facet>
+                    </p:panel>                        
+                </h:form>   
+            </td>
+        </tr>
+    </table>             
+</h:body>
+</html>
+

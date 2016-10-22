@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <script language="javascript" src="../utils/locale.js"/>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:growl id="mensajes" sticky="true" showDetail="true"/>
+            <p:wizard flowListener="#{formInscripciones.onFlowProcess}" nextLabel="Siguiente" backLabel="Anterior" style="font-size:12px; font-family: arial;">
+                <p:tab id="datosEstudiante" title="Informacion Acudiente" >
+                    <p:panel header="Datos Estudiante">
+                        <p:messages/>
+                        <div align="center">
+                            <h:panelGrid columns="4">
+                                <h:outputLabel value="Tipo Documento" for="tipoDocumentoAc"/>
+                                <h:outputLabel value="Numero Documento" for="numDocAc"/>
+                                <h:outputLabel value="Primer Nombre" for="priNomAc"/>
+                                <h:outputLabel value="Segundo Nombre" for="sNombre"/>
+                                
+                                <p:selectOneMenu id="tipoDocumentoAc" value="#{formInscripciones.tipoDocumentoAc}" required="true" requiredMessage="Debe seleccionar el documento">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{formInscripciones.listadoDocumentos}"/>
+                                </p:selectOneMenu>
+                                <p:inputText id="numDocAc" value="#{formInscripciones.numDocumentoAc}" required="true" requiredMessage="Debe ingresar el numero de documento">
+                                    <p:keyFilter regEx="/[a-z_A-Z]/i"/>
+                                </p:inputText>
+                                <p:inputText id="priNomAc" value="#{formInscripciones.primNombAc}" required="true" requiredMessage="Debe ingresar el primer nombre" />
+                                <p:inputText id="segNomAc" value="#{formInscripciones.segNombAc}"/>
+                                
+                                <h:outputLabel value="Primer Apellido" for="primApeAc"/>
+                                <h:outputLabel value="Segundo Apellido" for="segApeAc"/>
+                                <h:outputLabel value="Departamento de Nacimiento" for="idDptoNacAc"/>
+                                <h:outputLabel value="Municipio de Nacimiento" for="munNac"/>
+                                
+                                
+                                <p:inputText id="primApeAc" value="#{formInscripciones.primApeAc}" required="true" requiredMessage="Debe ingresar un apellido"/>
+                                <p:inputText id="segApeAc" value="#{formInscripciones.segApeAc}"/>
+                                <p:selectOneMenu id="idDptoNacAc" value="#{formInscripciones.idDepartamentoNacAc}" required="true" requiredMessage="Debe seleccionar el departamento">
+                                    <f:selectItem itemLabel="Seleccione...." itemValue="#{null}"/>
+                                    <f:selectItems value="#{formInscripciones.listaDepartamentos}"/>
+                                    <p:ajax listener="#{formInscripciones.cargaMunicipios}" update="munNac"/>
+                                </p:selectOneMenu>                                
+                                <p:selectOneMenu id="munNac" value="#{formInscripciones.idMunicipioNacAc}" required="true" requiredMessage="Debe seleccionar un municipio">
+                                    <f:selectItem itemLabel="Seleccione..." itemValue="#{null}"/>
+                                    <f:selectItems value="#{formInscripciones.listaMunicipios}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </div>                        
+                    </p:panel>
+                </p:tab>
+                <p:tab id="infoAcademica" title="Informacion Académica">
+                    <p:panel header="Informacion Académica">
+                        <p:messages/>
+                        <div align="center">
+                            <h:panelGrid columns="1">
+                                <p:editor id="editor" widgetVar="editorWidget" required="true" requiredMessage="Ingrese el texto" width="600" />
+                            </h:panelGrid>
+                        </div>                        
+                    </p:panel>
+                </p:tab> 
+            </p:wizard>
+        </h:form>
+    </h:body>
+</html>
+

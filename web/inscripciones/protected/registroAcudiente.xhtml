@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <script language="javascript" src="../utils/locale.js"/>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <table align="center">
+                <tr>
+                    <td>
+                        <p:panel header="Datos Acudientes" style="width:850px; font-size: 12px; font-family: Arial,Helvetica,sans-serif;">
+                            <div align="center">
+                                <p:panelGrid columns="4">
+                                    <h:outputLabel value="Tipo Documento" for="tipoDocumentoAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Numero Documento" for="numDocAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Primer Nombre" for="priNomAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Segundo Nombre" for="segNomAc" style="background-color: #dddddd; font-weight: bold;"/>
+
+                                    <p:selectOneMenu id="tipoDocumentoAc" value="#{mBRegistroAcudiente.tipoDocumentoAc}" required="true" requiredMessage="Debe seleccionar el documento">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                        <f:selectItems value="#{mBRegistroAcudiente.listadoDocumentos}"/>
+                                    </p:selectOneMenu>
+                                    <p:inputText id="numDocAc" value="#{mBRegistroAcudiente.numDocumentoAc}" readonly="true" required="true" requiredMessage="Debe ingresar el numero de documento">
+                                        <p:keyFilter regEx="/[a-z_A-Z]/i"/>
+                                    </p:inputText>
+                                    <p:inputText id="priNomAc" value="#{mBRegistroAcudiente.primNombAc}" required="true" requiredMessage="Debe ingresar el primer nombre" />
+                                    <p:inputText id="segNomAc" value="#{mBRegistroAcudiente.segNombAc}"/>
+
+                                    <h:outputLabel value="Primer Apellido" for="primApeAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Segundo Apellido" for="segApeAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Departamento de Residencia" for="idDptoResAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Municipio de Residencia" for="idMunResAc" style="background-color: #dddddd; font-weight: bold;"/>
+
+                                    <p:inputText id="primApeAc" value="#{mBRegistroAcudiente.primApeAc}" required="true" requiredMessage="Debe ingresar un apellido"/>
+                                    <p:inputText id="segApeAc" value="#{mBRegistroAcudiente.segApeAc}"/>
+                                    <p:selectOneMenu id="idDptoResAc" value="#{mBRegistroAcudiente.idDepartamentoResAc}" required="true" requiredMessage="Debe seleccionar el departamento">
+                                        <f:selectItem itemLabel="Seleccione...." itemValue="#{null}"/>
+                                        <f:selectItems value="#{mBRegistroAcudiente.listaDepartamentos}"/>
+                                        <p:ajax listener="#{mBRegistroAcudiente.cargaMunicipios}" update="munNac"/>
+                                    </p:selectOneMenu>                                
+                                    <p:selectOneMenu id="munNac" value="#{mBRegistroAcudiente.idMunicipioResAc}" required="true" requiredMessage="Debe seleccionar un municipio">
+                                        <f:selectItem itemLabel="Seleccione..." itemValue="#{null}"/>
+                                        <f:selectItems value="#{mBRegistroAcudiente.listaMunicipios}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Telefono Movil" for="telMovil" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Telefono Fijo" for="telFijo" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Direccion" for="domicilio" style="background-color: #dddddd; font-weight: bold;"/>
+                                    <h:outputLabel value="Correo Electronico" for="email" style="background-color: #dddddd; font-weight: bold;"/>
+
+                                    <p:inputMask mask="999-9999999" value="#{mBRegistroAcudiente.telMovil}" id="telMovil" required="true" requiredMessage="Debe ingresar el numero de telefono"/>
+                                    <p:inputText id="telFijo" value="#{mBRegistroAcudiente.telFijo}" required="true" requiredMessage="Debe ingresar un numero fijo"/>
+                                    <p:inputText id="domicilio" value="#{mBRegistroAcudiente.domicilio}" required="true" requiredMessage="Debe ingresar la direccion"/>
+                                    <p:inputText id="email" value="#{mBRegistroAcudiente.domicilio}" required="true" requiredMessage="Debe ingresar un correo electronico">
+                                        <p:keyFilter regEx="/[a-z0-9_\.\-@]/i"/>
+                                    </p:inputText>
+                                </p:panelGrid>
+                            </div>
+                            <f:facet name="footer">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div align="left">
+                                                <p:commandButton value="Registrar" icon="ui-icon-circle-arrow-e"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div align="right">
+                                                <a href=""><img src="../../resources/ayuda.png" height="30px" alt="http://www.citedia.com/upload/structure/vignette/46vignette.png"/></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>                       
+                            </f:facet>
+                        </p:panel>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>
+

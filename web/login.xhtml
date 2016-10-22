@@ -11,9 +11,6 @@
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
-        <br/>
         <table align="center">
             <tr>
                 <td>
@@ -21,19 +18,32 @@
                         <p:growl id="mensajes" showDetail="true"/>
                         <p:panel header="Ingreso" style="width:700px; font-family: Arial; font-size: 12px;">
                             <div align="center">
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel value="Usuario" for="usuario"/>
-                                    <p:inputText id="usuario" required="true" requiredMessage="Debe ingresar el usuario"/>
-                                    <h:outputLabel value="Contraseña" for="contrasena"/>
-                                    <p:password id="contrasena" required="true" requiredMessage="Debe ingresar la contraseña"/>
-                                </h:panelGrid>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h:panelGrid columns="2">
+                                                <h:outputLabel value="Usuario" for="usuario"/>
+                                                <p:inputText id="usuario" value="#{login.usuario}" required="true" requiredMessage="Debe ingresar el usuario"/>
+                                                <h:outputLabel value="Contraseña" for="contrasena"/>
+                                                <p:password id="contrasena" value="#{login.clave}" required="true" requiredMessage="Debe ingresar la contraseña"/>
+                                            </h:panelGrid>
+                                        </td>
+                                        <td>
+                                            <img src="resources/candado.jpg" height="100px" alt="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQrI2anB9NaQ5Fn4SLkBngKfaEIRk47UFJVtfqXd8Mg204K7W9tDQfQAA"/>
+                                        </td>
+                                    </tr>
+                                </table>                                
+                            </div>
+                            <div align="right">
+                                <a href="inscripciones/index.xhtml">Registro Acudientes</a><img src="resources/registrar.png" height="20px" alt="http://www.enerteleco.com/img/register%20(1).png"/>
+                                <a href="inscripciones/index.xhtml">Olvide mi contraseña</a><img src="resources/recuperar.jpg" height="20px" alt="https://recoverytoolbox.com/img/icon/logo_oep_256.png"/>
                             </div>                            
                             <f:facet name="footer">
-                                <p:commandButton value="Aceptar" update="mensajes"/>
+                                <p:commandButton value="Aceptar" icon="ui-icon-circle-arrow-e" actionListener="#{login.validarUsuario}" update="mensajes"/>
                             </f:facet>
                         </p:panel>
                     </h:form>                    
-                </td>
+                </td>                
             </tr>
         </table>
     </h:body>
