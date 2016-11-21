@@ -7,12 +7,12 @@
 package siga.admisiones.inscripciones;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,8 +20,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.SelectEvent;
-import siga.business.admisiones.Validaciones;
-import siga.persistence.entities.TipoDocumento;
+import siga.conexiones.modelo.OperacionesAcudiente;
+import siga.datos.entidades.TiposDocumento;
 
 /**
  *
@@ -31,8 +31,7 @@ import siga.persistence.entities.TipoDocumento;
 @SessionScoped
 public class InicioInscripciones {
 
-    @EJB
-    private Validaciones validaciones;   
+    
     private String fechaNacimiento;
     private Integer edad;
     private String numDocumento;
@@ -41,6 +40,7 @@ public class InicioInscripciones {
     private boolean activarCheck = true;
     private boolean acepta;
     private List<SelectItem> listaDocumentos;
+    private OperacionesAcudiente conexion;
 
     public boolean isAcepta() {
         return acepta;
@@ -54,6 +54,7 @@ public class InicioInscripciones {
      * Creates a new instance of InicioInscripciones
      */
     public InicioInscripciones() {
+        
     }
     
     public void onDateSelect(SelectEvent event) {
@@ -65,7 +66,7 @@ public class InicioInscripciones {
             System.out.println("Un error ha ocurrido "+ex.getMessage());
         }
         System.out.print(date.toString());
-        Integer edades = validaciones.calcularEdad(date);
+        Integer edades = conexion.calcularEdad(date);
         FacesContext facesContext = FacesContext.getCurrentInstance();        
         if(edades <= 18){
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atencion", "Para acceder a la inscripcion, debe ser mayor de 18 años"));
@@ -124,11 +125,11 @@ public class InicioInscripciones {
         this.activarCheck = activarCheck;
     }
 
-    public List<SelectItem> getListaDocumentos() {
-        List<TipoDocumento> listadoDocumentos = validaciones.getListaDocumentos();
+    public List<SelectItem> getListaDocumentos() throws SQLException {
+        List<TiposDocumento> listadoDocumentos = this.getConexion().listaDocumentosValidacion();
         listaDocumentos = new ArrayList<SelectItem>();
-        for(TipoDocumento t : listadoDocumentos){
-            listaDocumentos.add(new SelectItem(t.getIdTipDoc(),t.getNombreTipo()));
+        for(TiposDocumento t : listadoDocumentos){
+            listaDocumentos.add(new SelectItem(t.getIdTipoDoc(),t.getNombre()));
         }
         return listaDocumentos;
     }
@@ -151,6 +152,11 @@ public class InicioInscripciones {
 
     public void setNumDocumento(String numDocumento) {
         this.numDocumento = numDocumento;
+    }
+
+    public OperacionesAcudiente getConexion() {
+        conexion = new OperacionesAcudiente();
+        return conexion;
     }
     
 }

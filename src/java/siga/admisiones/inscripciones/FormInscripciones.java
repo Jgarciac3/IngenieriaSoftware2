@@ -13,10 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FlowEvent;
-import siga.business.admisiones.Validaciones;
-import siga.persistence.entities.Departamentos;
-import siga.persistence.entities.Municipios;
-import siga.persistence.entities.TipoDocumento;
+
 
 /**
  *
@@ -25,7 +22,7 @@ import siga.persistence.entities.TipoDocumento;
 @ManagedBean
 @SessionScoped
 public class FormInscripciones {
-
+/*
     @EJB
     private Validaciones validaciones;    
     private boolean skip;
@@ -43,9 +40,7 @@ public class FormInscripciones {
     private List<SelectItem> listaDepartamentos;
     private List<SelectItem> listaMunicipios;
     
-    /**
-     * Creates a new instance of FormInscripciones
-     */
+    
     public FormInscripciones() {
     }
     
@@ -121,16 +116,12 @@ public class FormInscripciones {
         this.idMunicipioResAc = idMunicipioResAc;
     }
     
-    /*
-    Nombre metodo: getListaMunicipios.
-    Descripcion: Obtiene la lista de municipios dependiendo del departamento seleccionado.
-    Parametros: No recibe.
-    */    
+    
     public List<SelectItem> getListaMunicipios() {
         List<Municipios> listadoMunicipios = validaciones.getListaMunicipios(this.getIdDepartamentoResAc());
         listaMunicipios = new ArrayList<SelectItem>();
         for(Municipios m : listadoMunicipios){
-            listaMunicipios.add(new SelectItem(m.getMunicipiosPK().getIdmunicipios(),m.getNombreMunicipio()));
+            listaMunicipios.add(new SelectItem(m.getIdmunicipios(),m.getNombreMunicipio()));
         }
         return listaMunicipios;
     }
@@ -193,6 +184,6 @@ public class FormInscripciones {
 
     public void setIdMunicipioNacAc(String idMunicipioNacAc) {
         this.idMunicipioNacAc = idMunicipioNacAc;
-    }
+    }*/
     
 }

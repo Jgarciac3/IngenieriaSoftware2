@@ -13,7 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import siga.business.admisiones.Validaciones;
+
 
 /**
  *
@@ -23,8 +23,7 @@ import siga.business.admisiones.Validaciones;
 @SessionScoped
 public class Login {
     
-    @EJB
-    private Validaciones validaciones;
+    
 
     /**
      * Creates a new instance of Login
@@ -41,12 +40,12 @@ public class Login {
     }
     
     public void validarUsuario(ActionEvent event) throws IOException{
-        int validacion = validaciones.getDatosUsuarios(clave, usuario);
+        int validacion = -1;//validaciones.getDatosUsuarios(clave, usuario);
         if(validacion == 1){
             FacesContext.getCurrentInstance().getExternalContext().redirect("protected/templates/menuAdmin.xhtml");
         }
         else{
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,"Atencion","Usuario o contraseña invalidos. Si es un acudiente nuevo por favor registrese"));
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,"Atencion","Usuario o contraseña invalidos. Si es un acudiente nuevo por favor registrese, de lo contrario contacte al administrador"));
         }
     }
 

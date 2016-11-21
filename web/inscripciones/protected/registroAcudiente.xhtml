@@ -10,63 +10,142 @@
     </h:head>
     <h:body>
         <h:form id="form">
+            <p:growl id="mensajes" showDetail="true"/>
             <table align="center">
                 <tr>
                     <td>
-                        <p:panel header="Datos Acudientes" style="width:850px; font-size: 12px; font-family: Arial,Helvetica,sans-serif;">
-                            <div align="center">
-                                <p:panelGrid columns="4">
-                                    <h:outputLabel value="Tipo Documento" for="tipoDocumentoAc" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Numero Documento" for="numDocAc" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Primer Nombre" for="priNomAc" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Segundo Nombre" for="segNomAc" style="background-color: #dddddd; font-weight: bold;"/>
+                        <p:panel header="Datos Acudientes" style="width:950px; font-size: 12px; font-family: Arial,Helvetica,sans-serif;">
+                            <p:fieldset legend="Datos Personales">
+                                <div align="center">
+                                    <p:panelGrid columns="4">
+                                        <h:outputLabel value="Tipo Documento" for="tipoDocumentoAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Numero Documento" for="numDocAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Primer Nombre" for="priNomAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Segundo Nombre" for="segNomAc" style="background-color: #dddddd; font-weight: bold;"/>
 
-                                    <p:selectOneMenu id="tipoDocumentoAc" value="#{mBRegistroAcudiente.tipoDocumentoAc}" required="true" requiredMessage="Debe seleccionar el documento">
-                                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
-                                        <f:selectItems value="#{mBRegistroAcudiente.listadoDocumentos}"/>
-                                    </p:selectOneMenu>
-                                    <p:inputText id="numDocAc" value="#{mBRegistroAcudiente.numDocumentoAc}" readonly="true" required="true" requiredMessage="Debe ingresar el numero de documento">
-                                        <p:keyFilter regEx="/[a-z_A-Z]/i"/>
-                                    </p:inputText>
-                                    <p:inputText id="priNomAc" value="#{mBRegistroAcudiente.primNombAc}" required="true" requiredMessage="Debe ingresar el primer nombre" />
-                                    <p:inputText id="segNomAc" value="#{mBRegistroAcudiente.segNombAc}"/>
+                                        <p:selectOneMenu id="tipoDocumentoAc" value="#{mBRegistroAcudiente.tipoDocumentoAc}" required="true" requiredMessage="Debe seleccionar el documento">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="#{null}"/>
+                                            <f:selectItems value="#{mBRegistroAcudiente.listadoDocumentos}"/>
+                                        </p:selectOneMenu>
+                                        <p:inputText id="numDocAc" value="#{mBRegistroAcudiente.numDocumentoAc}" readonly="true" required="true" requiredMessage="Debe ingresar el numero de documento">
+                                            <p:keyFilter regEx="/[a-z_A-Z]/i"/>
+                                        </p:inputText>
+                                        <p:inputText id="priNomAc" value="#{mBRegistroAcudiente.primNombAc}" required="true" requiredMessage="Debe ingresar el primer nombre">
+                                            <p:keyFilter regEx="/[a-z_A-Z]/i"/>
+                                        </p:inputText>
+                                        <p:inputText id="segNomAc" value="#{mBRegistroAcudiente.segNombAc}">
+                                            <p:keyFilter regEx="/[a-z_A-Z]/i"/>
+                                        </p:inputText>
 
-                                    <h:outputLabel value="Primer Apellido" for="primApeAc" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Segundo Apellido" for="segApeAc" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Departamento de Residencia" for="idDptoResAc" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Municipio de Residencia" for="idMunResAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Primer Apellido" for="primApeAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Segundo Apellido" for="segApeAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Departamento de Residencia" for="idDptoResAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Municipio de Residencia" for="munNac" style="background-color: #dddddd; font-weight: bold;"/>
 
-                                    <p:inputText id="primApeAc" value="#{mBRegistroAcudiente.primApeAc}" required="true" requiredMessage="Debe ingresar un apellido"/>
-                                    <p:inputText id="segApeAc" value="#{mBRegistroAcudiente.segApeAc}"/>
-                                    <p:selectOneMenu id="idDptoResAc" value="#{mBRegistroAcudiente.idDepartamentoResAc}" required="true" requiredMessage="Debe seleccionar el departamento">
-                                        <f:selectItem itemLabel="Seleccione...." itemValue="#{null}"/>
-                                        <f:selectItems value="#{mBRegistroAcudiente.listaDepartamentos}"/>
-                                        <p:ajax listener="#{mBRegistroAcudiente.cargaMunicipios}" update="munNac"/>
-                                    </p:selectOneMenu>                                
-                                    <p:selectOneMenu id="munNac" value="#{mBRegistroAcudiente.idMunicipioResAc}" required="true" requiredMessage="Debe seleccionar un municipio">
-                                        <f:selectItem itemLabel="Seleccione..." itemValue="#{null}"/>
-                                        <f:selectItems value="#{mBRegistroAcudiente.listaMunicipios}"/>
-                                    </p:selectOneMenu>
+                                        <p:inputText id="primApeAc" value="#{mBRegistroAcudiente.primApeAc}" required="true" requiredMessage="Debe ingresar un apellido">
+                                            <p:keyFilter regEx="/[a-z_A-Z]/i"/>
+                                        </p:inputText>
+                                        <p:inputText id="segApeAc" value="#{mBRegistroAcudiente.segApeAc}">
+                                            <p:keyFilter regEx="/[a-z_A-Z]/i"/>
+                                        </p:inputText>
+                                        <p:selectOneMenu id="idDptoResAc" value="#{mBRegistroAcudiente.idDepartamentoResAc}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Debe seleccionar el departamento de residencia">
+                                            <f:selectItem itemLabel="Seleccione...." itemValue="#{null}"/>
+                                            <f:selectItems value="#{mBRegistroAcudiente.listaDepartamentos}"/>
+                                            <p:ajax listener="#{mBRegistroAcudiente.cargaMunicipios}" update="munNac"/>
+                                        </p:selectOneMenu>                                
+                                        <p:selectOneMenu id="munNac" value="#{mBRegistroAcudiente.idMunicipioResAc}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Debe seleccionar el municipio de residencia">
+                                            <f:selectItem itemLabel="Seleccione..." itemValue="#{null}"/>
+                                            <f:selectItems value="#{mBRegistroAcudiente.listaMunicipios}"/>
+                                        </p:selectOneMenu>
 
-                                    <h:outputLabel value="Telefono Movil" for="telMovil" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Telefono Fijo" for="telFijo" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Direccion" for="domicilio" style="background-color: #dddddd; font-weight: bold;"/>
-                                    <h:outputLabel value="Correo Electronico" for="email" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Fecha Nacimiento" for="fechNac" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Departamento Nacimiento" for="dptoNac" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Ciudad Nacimiento" for="ciuNac" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Telefono Movil" for="telMovil" style="background-color: #dddddd; font-weight: bold;"/>
 
-                                    <p:inputMask mask="999-9999999" value="#{mBRegistroAcudiente.telMovil}" id="telMovil" required="true" requiredMessage="Debe ingresar el numero de telefono"/>
-                                    <p:inputText id="telFijo" value="#{mBRegistroAcudiente.telFijo}" required="true" requiredMessage="Debe ingresar un numero fijo"/>
-                                    <p:inputText id="domicilio" value="#{mBRegistroAcudiente.domicilio}" required="true" requiredMessage="Debe ingresar la direccion"/>
-                                    <p:inputText id="email" value="#{mBRegistroAcudiente.domicilio}" required="true" requiredMessage="Debe ingresar un correo electronico">
-                                        <p:keyFilter regEx="/[a-z0-9_\.\-@]/i"/>
-                                    </p:inputText>
-                                </p:panelGrid>
-                            </div>
+                                        <p:calendar pattern="yyyy-mm-dd" maxdate="0" id="fechNac" locale="es" navigator="true" value="#{mBRegistroAcudiente.fechaNac}"/>
+                                        <p:selectOneMenu id="dptoNac" value="#{mBRegistroAcudiente.idDepartamentoNacAc}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Debe seleccionar el departamento">
+                                            <f:selectItem itemLabel="Seleccione...." itemValue="#{null}"/>
+                                            <f:selectItems value="#{mBRegistroAcudiente.listaDepartamentos}"/>
+                                            <p:ajax listener="#{mBRegistroAcudiente.cargaMunicipioNac}" update="ciuNac"/>
+                                        </p:selectOneMenu>                                
+                                        <p:selectOneMenu id="ciuNac" value="#{mBRegistroAcudiente.idMunicipioNacAc}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Debe seleccionar un municipio">
+                                            <f:selectItem itemLabel="Seleccione..." itemValue="#{null}"/>
+                                            <f:selectItems value="#{mBRegistroAcudiente.listaMunicipiosNac}"/>
+                                        </p:selectOneMenu>
+                                        <p:inputMask mask="999-9999999" value="#{mBRegistroAcudiente.telMovil}" id="telMovil" required="true" requiredMessage="Debe ingresar el numero de telefono"/>
+
+                                        <h:outputLabel value="Telefono Fijo" for="telFijo" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Direccion" for="domicilio" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Correo Electronico" for="email" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="EPS" for="eps" style="background-color: #dddddd; font-weight: bold;"/>
+
+                                        <p:inputText id="telFijo" value="#{mBRegistroAcudiente.telFijo}" required="true" requiredMessage="Debe ingresar un numero fijo"/>
+                                        <p:inputText id="domicilio" value="#{mBRegistroAcudiente.domicilio}" required="true" requiredMessage="Debe ingresar la direccion"/>
+                                        <p:inputText id="email" value="#{mBRegistroAcudiente.email}" required="true" requiredMessage="Debe ingresar un correo electronico" validatorMessage="El correo no tiene un formato valido">
+                                            <p:keyFilter regEx="/[a-z0-9_\.\-@]/i"/>
+                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+                                        </p:inputText>
+                                        <p:selectOneMenu id="eps" value="#{mBRegistroAcudiente.eps}" required="true" requiredMessage="Debe seleccionar una eps">
+                                            <f:selectItem itemValue="#{null}" itemLabel="Seleccione"/>
+                                            <f:selectItem itemValue="CAFESALUD" itemLabel="CAFESALUD"/>
+                                            <f:selectItem itemValue="COMPENSAR" itemLabel="COMPENSAR"/>
+                                            <f:selectItem itemValue="FAMISANAR" itemLabel="FAMISANAR"/>
+                                            <f:selectItem itemValue="SURA" itemLabel="SURA"/>
+                                            <f:selectItem itemValue="SANITAS" itemLabel="SANITAS"/>
+                                        </p:selectOneMenu>                                 
+
+                                    </p:panelGrid>
+                                </div>
+                            </p:fieldset> 
+                            <br/>
+                            <p:fieldset legend="Informacion Laboral">
+                                <div align="center">
+                                    <p:panelGrid columns="3">
+                                        <h:outputLabel value="Empresa" for="empresaAc" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Ciudad Laboral" for="ciuLab" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Departamento Laboral" for="dptoLab" style="background-color: #dddddd; font-weight: bold;"/>
+
+                                        <p:inputText id="empresaAc" value="#{mBRegistroAcudiente.empresa}" required="true" requiredMessage="Debe ingresar un apellido"/>
+                                        <p:selectOneMenu id="dptoLab" value="#{mBRegistroAcudiente.idDepartamentoLab}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Debe seleccionar el departamento">
+                                            <f:selectItem itemLabel="Seleccione...." itemValue="#{null}"/>
+                                            <f:selectItems value="#{mBRegistroAcudiente.listaDepartamentos}"/>
+                                            <p:ajax listener="#{mBRegistroAcudiente.cargaMunicipioLab}" update="ciuLab"/>
+                                        </p:selectOneMenu>                                
+                                        <p:selectOneMenu id="ciuLab" value="#{mBRegistroAcudiente.idMunicipioLab}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Debe seleccionar un municipio">
+                                            <f:selectItem itemLabel="Seleccione..." itemValue="#{null}"/>
+                                            <f:selectItems value="#{mBRegistroAcudiente.listaMunicipiosLab}"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="2">
+                                        <h:outputLabel value="Telefono" for="telLab" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <h:outputLabel value="Direccion" for="dirLab" style="background-color: #dddddd; font-weight: bold;"/>
+                                        
+                                        <p:inputText id="telLab" value="#{mBRegistroAcudiente.telefonoLab}" required="true" requiredMessage="Debe ingresar un numero de telefono laboral">
+                                            <p:keyFilter regEx="/[0-9]/i"/>
+                                        </p:inputText>
+                                        <p:inputText id="dirLab" value="#{mBRegistroAcudiente.direccionLab}" required="true" requiredMessage="Debe ingresar una direccion laboral"/>                                                                               
+                                    </p:panelGrid>
+                                </div>
+                            </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Informacion de Acceso">
+                                <div align="center">
+                                    <p:panelGrid columns="4">
+                                        <h:outputLabel value="Ingresar Una Contraseña" for="clave1" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <p:password id="clave1" value="#{mBRegistroAcudiente.usuarioInfo1}" required="true" requiredMessage="Debe ingresar una contraseña"/>
+                                        <h:outputLabel value="Confirmar Contraseña" for="clave2" style="background-color: #dddddd; font-weight: bold;"/>
+                                        <p:password id="clave2" value="#{mBRegistroAcudiente.usuarioInfo2}" required="true" requiredMessage="Debe ingresar una contraseña"/>
+                                    </p:panelGrid>
+                                </div>
+                            </p:fieldset>
                             <f:facet name="footer">
                                 <table>
                                     <tr>
                                         <td>
                                             <div align="left">
-                                                <p:commandButton value="Registrar" icon="ui-icon-circle-arrow-e"/>
+                                                <p:commandButton value="Registrar" icon="ui-icon-circle-arrow-e" actionListener="#{mBRegistroAcudiente.registrarAcudiente}" update="mensajes"/>
                                             </div>
                                         </td>
                                         <td>
